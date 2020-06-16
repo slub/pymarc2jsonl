@@ -1,7 +1,3 @@
-"""
-simple downloader for saving a whole ElasticSearch-index, just the corresponding type or just a document into a line-delimited JSON-File
-"""
-
 try:
     from setuptools import setup
 except ImportError:
