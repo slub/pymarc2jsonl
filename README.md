@@ -15,7 +15,7 @@ python3 -m pip install --user .
 pymarc2jsonl and json2marc21 don't use any cmdline arguments, they only use stdout and stdin.
 
 e.g.:
-``
+```
 pymarc2jsonl < binary_marc21.mrc > line_delmited_json.ldj
 ```
 
