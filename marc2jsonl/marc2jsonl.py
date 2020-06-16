@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 
 import sys
 import json
@@ -34,12 +34,11 @@ def transpose_to_ldj(record):
     return json_record
 
 
-def main():
+def run(fd):
     try:
-        for n, record in enumerate(MARCReader(sys.stdin.buffer.read())):
+        for record in MARCReader(fd):
             try:
-                sys.stdout.write(json.dumps(transpose_to_ldj(record), sort_keys=True)+"\n")
-                sys.stdout.flush()
+                yield transpose_to_ldj(record)
             except AttributeError as e:
                 eprint("attribut error: {}".format(e))
                 eprint(record)
@@ -48,6 +47,9 @@ def main():
         eprint("unicode decode error: {}".format(e))
         eprint(record)
 
+def main():
+    for record in run(sys.stdin.buffer.read()):
+        print(json.dumps(record, sort_keys=True))
 
 
 if __name__ == "__main__":
