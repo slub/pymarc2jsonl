@@ -22,3 +22,10 @@ pymarc2jsonl < binary_marc21.mrc > line_delmited_json.ldj
 ```
 json2marc21 < line_delimited_json.ldj > binary_marc21.mrc
 ```
+
+## Tests
+this package comes with tests, run via:
+
+```
+python3 -m pytest tests/
+```
