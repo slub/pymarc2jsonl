@@ -5,6 +5,7 @@
 
 import json
 import sys
+import collections
 from pymarc import Record, Field
 from es2json import isint
 
@@ -12,7 +13,7 @@ from es2json import isint
 def transpose_to_marc21(record):
     Mrecord = Record(force_utf8=True)
     Mrecord.leader = record["_LEADER"]
-    for field in record:
+    for field in collections.OrderedDict(sorted(record.items())):
         if isint(field):
             if int(field) < 10:
                 if isinstance(record[field], list):
