@@ -12,11 +12,13 @@ setup(name='pymarc2jsonl',
       license="Apache 2.0",
       packages=[
           'marc2jsonl',
-          'json2marc21'
+          'json2marc21',
+          'json2marcxml'
           ],
       package_dir={
           'marc2jsonl': 'marc2jsonl',
-          'json2marc21': 'json2marc21'
+          'json2marc21': 'json2marc21',
+          'json2marcxml': 'json2marc21'
           },
       install_requires=[
           'argparse>=1.4.0',
@@ -28,7 +30,8 @@ setup(name='pymarc2jsonl',
       entry_points={
           "console_scripts": [
               "pymarc2jsonl=marc2jsonl.marc2jsonl:main",
-              "json2marc21=json2marc21.json2marc21:main"
+              "json2marc21=json2marc21.json2marc21:main",
+              "json2marcxml=json2marc21.json2marcxml:main"
               ]
           }
       )
