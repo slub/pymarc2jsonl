@@ -39,15 +39,15 @@ def transpose_to_marc21(record):
                         Mrecord.add_field(Field(tag=str(field),
                                                 indicators=indicators,
                                                 subfields=subfields))
-    return Mrecord.as_marc()
+    return Mrecord
 
 
 def main():
     for line in sys.stdin:
         try:
             record = json.loads(line, encoding='utf-8')
-            transpose_to_marc21(record)
-            sys.stdout.buffer.write(transpose_to_marc21(record))
+            record = transpose_to_marc21(record)
+            sys.stdout.buffer.write(record.as_marc())
             sys.stdout.flush()
         except UnicodeDecodeError as e:
             eprint("unicode decode error: {}".format(e))
