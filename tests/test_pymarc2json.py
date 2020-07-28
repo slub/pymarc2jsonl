@@ -34,7 +34,6 @@ def test_json2marc():
             expected = list(inp.read())
         with open("{}.ldj".format(fd), "rt") as inp:
             for line in inp:
-                result+=list(transpose_to_marc21(json.loads(line)))
+                result+=list(transpose_to_marc21(json.loads(line)).as_marc())
         assert result == expected
                 
-
