@@ -1,5 +1,6 @@
 from marc2jsonl.marc2jsonl import run
 from json2marc21.json2marc21 import transpose_to_marc21
+from pymarc import marcxml
 import json
 
 def test_marc2json():
@@ -36,4 +37,23 @@ def test_json2marc():
             for line in inp:
                 result+=list(transpose_to_marc21(json.loads(line)).as_marc())
         assert result == expected
-                
+
+def test_json2marcxml():
+    """
+    this function tests the JSON to MARC21 functionality
+    """
+    files = ["tests/data_marc1", "tests/data_marc2"]
+    for fd in files:
+        result = []
+        with open("{}.xml".format(fd), "rb") as inp:
+            expected = list(inp.read())
+        with open("{}.ldj".format(fd), "rt") as inp:
+            for c in "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<collection xmlns=\"http://www.loc.gov/MARC21/slim\">":
+                result.append(ord(c))
+            for line in inp:
+                result+=list(marcxml.record_to_xml(transpose_to_marc21(json.loads(line)),quiet=True,namespace=True))
+            for c in "</collection>\n":
+                result.append(ord(c))
+        assert result == expected
+
+            
