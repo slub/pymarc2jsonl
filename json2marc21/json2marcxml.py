@@ -56,8 +56,7 @@ def record_to_xml_node(record, quiet=False, namespace=False):
                 data_subfield = ET.SubElement(data_field, "subfield")
                 data_subfield.set("code", subfield[0])
                 data_subfield.text = translate(subfield[1])
-
-    return ET.tostring(root)
+    ET.dump(root)
 
 
 def main():
@@ -67,7 +66,7 @@ def main():
         try:
             record = json.loads(line)
             record = transpose_to_marc21(record, True)
-            sys.stdout.buffer.write(record_to_xml_node(record, quiet=True, namespace=True))
+            record_to_xml_node(record, quiet=True, namespace=True)
             sys.stdout.flush()
         except UnicodeDecodeError as e:
             eprint("unicode decode error: {}".format(e))
