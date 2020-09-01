@@ -6,7 +6,7 @@
 import json
 import sys
 from pymarc import Record, Field, marcxml, MARC8ToUnicode
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from json2marc21.json2marc21 import transpose_to_marc21
 from es2json import isint
 
@@ -34,12 +34,15 @@ def record_to_xml_node(record, quiet=False, namespace=False):
             return data
         else:
             return marc8.translate(data)
-
-    root = ET.Element("record")
-    if namespace:
-        root.set("xmlns", MARC_XML_NS)
-        root.set("xmlns:xsi", XSI_NS)
-        root.set("xsi:schemaLocation", MARC_XML_SCHEMA)
+    NSMAP = {#"xmlns": "http://www.loc.gov/MARC21/slim",
+             "xsi": "http://www.w3.org/2001/XMLSchema-instance",
+             "schemaLocation": "http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd"
+             }
+    root = ET.Element("record", nsmap=NSMAP)
+    #if namespace:
+        #root.set("xmlns", MARC_XML_NS)
+        #root.set("xmlns:xsi", XSI_NS)
+        #root.set("xsi:schemaLocation", MARC_XML_SCHEMA)
     leader = ET.SubElement(root, "leader")
     leader.text = str(record.leader)
     for field in record:
@@ -56,7 +59,8 @@ def record_to_xml_node(record, quiet=False, namespace=False):
                 data_subfield = ET.SubElement(data_field, "subfield")
                 data_subfield.set("code", subfield[0])
                 data_subfield.text = translate(subfield[1])
-    ET.dump(root)
+
+    return ET.tostring(root)
 
 
 def main():
@@ -66,7 +70,7 @@ def main():
         try:
             record = json.loads(line)
             record = transpose_to_marc21(record, True)
-            record_to_xml_node(record, quiet=True, namespace=True)
+            sys.stdout.buffer.write(record_to_xml_node(record, quiet=True, namespace=True))
             sys.stdout.flush()
         except UnicodeDecodeError as e:
             eprint("unicode decode error: {}".format(e))
