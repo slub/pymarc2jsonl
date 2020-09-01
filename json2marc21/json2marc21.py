@@ -10,7 +10,7 @@ from pymarc import Record, Field
 from es2json import isint
 
 
-def transpose_to_marc21(record):
+def transpose_to_marc21(record, fix_xml):
     Mrecord = Record(force_utf8=True)
     Mrecord.leader = record["_LEADER"]
     for field in collections.OrderedDict(sorted(record.items())):
@@ -36,7 +36,10 @@ def transpose_to_marc21(record):
                                         subfields.append(k)
                                         subfields.append(subfield_elem)
                         for elem in ind:
-                            indicators.append(elem)
+                            if fix_xml and elem == '_':
+                                indicators.append(' ')
+                            else:
+                                indicators.append(elem)
                         Mrecord.add_field(Field(tag=str(field),
                                                 indicators=indicators,
                                                 subfields=subfields))
@@ -47,7 +50,7 @@ def main():
     for line in sys.stdin:
         try:
             record = json.loads(line, encoding='utf-8')
-            record = transpose_to_marc21(record)
+            record = transpose_to_marc21(record, False)
             sys.stdout.buffer.write(record.as_marc())
             sys.stdout.flush()
         except UnicodeDecodeError as e:
