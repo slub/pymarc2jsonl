@@ -60,7 +60,8 @@ def record_to_xml_node(record, quiet=False, namespace=False):
                 data_subfield.set("code", subfield[0])
                 data_subfield.text = translate(subfield[1])
 
-    return ET.tostring(root)
+    # pass UTF-8 - encoding due to: https://bugs.launchpad.net/lxml/+bug/1873306
+    return ET.tostring(root, encoding="UTF-8")
 
 
 def main():
