@@ -24,6 +24,7 @@ setup(name='pymarc2jsonl',
           'argparse>=1.4.0',
           'pymarc>=4.0.0',
           'six>=1.14.0',
+          'lxml>=4.8.0',
           'es2json>=0.0.1'
       ],
       python_requires=">=3.6.*",

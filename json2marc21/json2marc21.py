@@ -49,7 +49,7 @@ def transpose_to_marc21(record, fix_xml):
 def main():
     for line in sys.stdin:
         try:
-            record = json.loads(line, encoding='utf-8')
+            record = json.loads(line)
             record = transpose_to_marc21(record, False)
             sys.stdout.buffer.write(record.as_marc())
             sys.stdout.flush()
