@@ -25,7 +25,7 @@ setup(name='pymarc2jsonl',
           'pymarc>=4.0.0',
           'six>=1.14.0',
           'lxml>=4.8.0',
-          'es2json>=0.0.1'
+          'es2json @ git+https://github.com/slub/es2json.git'
       ],
       python_requires=">=3.6.*",
       entry_points={
