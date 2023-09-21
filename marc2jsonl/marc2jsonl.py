@@ -3,7 +3,7 @@
 import sys
 import json
 
-from es2json import ArrayOrSingleValue, eprint,litter,isint
+from es2json import eprint, isint
 from pymarc import MARCReader
 from six.moves import zip_longest as izip_longest
 
