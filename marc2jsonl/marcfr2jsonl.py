@@ -12,7 +12,8 @@ def transpose_to_ldj(record):
     json_record = {
         '_LEADER': record.leader,
         '_FORMAT': "MarcXchange",
-        '_TYPE': "Bibliographic"
+        '_TYPE': "Bibliographic",
+        '_FULLRECORD': record.as_marc21().decode(),
     }
 
     for field in record:

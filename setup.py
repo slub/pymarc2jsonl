@@ -12,17 +12,19 @@ setup(name='pymarc2jsonl',
       license="Apache 2.0",
       packages=[
           'marc2jsonl',
+          'marcfr2jsonl',
           'json2marc21',
           'json2marcxml'
           ],
       package_dir={
           'marc2jsonl': 'marc2jsonl',
+          'marcfr2jsonl': 'marc2jsonl',
           'json2marc21': 'json2marc21',
           'json2marcxml': 'json2marc21'
           },
       install_requires=[
           'argparse>=1.4.0',
-          'pymarc>=4.0.0',
+          'pymarc>=4.0.0,<5',
           'six>=1.14.0',
           'lxml>=4.8.0',
           'es2json @ git+https://github.com/slub/es2json.git'
@@ -31,6 +33,7 @@ setup(name='pymarc2jsonl',
       entry_points={
           "console_scripts": [
               "pymarc2jsonl=marc2jsonl.marc2jsonl:main",
+              "pymarcfr2jsonl=marc2jsonl.marcfr2jsonl:main",
               "json2marc21=json2marc21.json2marc21:main",
               "json2marcxml=json2marc21.json2marcxml:main"
               ]
