@@ -19,6 +19,7 @@ setup(name='pymarc2jsonl',
       package_dir={
           'marc2jsonl': 'marc2jsonl',
           'marcfr2jsonl': 'marc2jsonl',
+          'marcxml2jsonl': 'marc2jsonl',
           'json2marc21': 'json2marc21',
           'json2marcxml': 'json2marc21'
           },
@@ -34,6 +35,7 @@ setup(name='pymarc2jsonl',
           "console_scripts": [
               "pymarc2jsonl=marc2jsonl.marc2jsonl:main",
               "pymarcfr2jsonl=marc2jsonl.marcfr2jsonl:main",
+              "pymarcxml2jsonl=marc2jsonl.marcxml2jsonl:main",
               "json2marc21=json2marc21.json2marc21:main",
               "json2marcxml=json2marc21.json2marcxml:main"
               ]
